@@ -12,11 +12,6 @@ if (process.env.NODE_ENV === 'development') {
 } else {
   BASE_URL = 'http://123.207.32.32:8000/'
   BASE_NAME = 'test'
-
 }
 
-export {
-  BASE_URL,
-  BASE_NAME,
-  TIME_OUT
-}
+export { BASE_URL, BASE_NAME, TIME_OUT }

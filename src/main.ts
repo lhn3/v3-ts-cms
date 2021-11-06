@@ -24,21 +24,22 @@ app.use(router)
 
 app.mount('#app')
 
-
 //定义返回类型
 interface DataType {
-  data: any,
-  returnCode: string,
+  data: any
+  returnCode: string
   success: boolean
 }
 
 //发出请求
-myAxios.request<DataType>({
-  url: '/home/multidata',
-  method: 'get'
-}).then(res => {
-  console.log(res)
-  console.log(res.data)
-  console.log(res.returnCode)
-  console.log(res.success)
-})
+myAxios
+  .request<DataType>({
+    url: '/home/multidata',
+    method: 'get'
+  })
+  .then((res) => {
+    console.log(res)
+    console.log(res.data)
+    console.log(res.returnCode)
+    console.log(res.success)
+  })

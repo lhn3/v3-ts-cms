@@ -5,7 +5,6 @@ import { ElLoading } from 'element-plus/lib'
 //导入自己封装的类型
 import { RequestInterceptors, myRequestConfig } from './type'
 
-
 //创建封装axios类
 export default class myRequest {
   instance: AxiosInstance
@@ -44,42 +43,47 @@ export default class myRequest {
       })
       return config
     })
-    this.instance.interceptors.response.use((res) => {
-      console.log('全部响应拦截，成功')
-      //删除加载动画
-      this.loading?.close()
-      return res.data
-    }, (err) => {
-      //删除加载动画
-      this.loading?.close()
-      return err
-    })
+    this.instance.interceptors.response.use(
+      (res) => {
+        console.log('全部响应拦截，成功')
+        //删除加载动画
+        this.loading?.close()
+        return res.data
+      },
+      (err) => {
+        //删除加载动画
+        this.loading?.close()
+        return err
+      }
+    )
   }
 
-
-//  定义request方法
+  //  定义request方法
   request<T>(config: myRequestConfig): Promise<T> {
     //返回一个promise
     return new Promise((resolve, reject) => {
-      this.instance.request<any,T>(config).then(res => {
-        resolve(res)
-      }).catch(err => {
-        reject(err)
-        return err
-      })
+      this.instance
+        .request<any, T>(config)
+        .then((res) => {
+          resolve(res)
+        })
+        .catch((err) => {
+          reject(err)
+          return err
+        })
     })
   }
 
-  get<T>(config:myRequestConfig):Promise<T>{
-    return this.request<T>({...config,method:'GET'})
+  get<T>(config: myRequestConfig): Promise<T> {
+    return this.request<T>({ ...config, method: 'GET' })
   }
-  post<T>(config:myRequestConfig):Promise<T>{
-    return this.request<T>({...config,method:'POST'})
+  post<T>(config: myRequestConfig): Promise<T> {
+    return this.request<T>({ ...config, method: 'POST' })
   }
-  delete<T>(config:myRequestConfig):Promise<T>{
-    return this.request<T>({...config,method:'DELETE'})
+  delete<T>(config: myRequestConfig): Promise<T> {
+    return this.request<T>({ ...config, method: 'DELETE' })
   }
-  PUT<T>(config:myRequestConfig):Promise<T>{
-    return this.request<T>({...config,method:'PUT'})
+  PUT<T>(config: myRequestConfig): Promise<T> {
+    return this.request<T>({ ...config, method: 'PUT' })
   }
 }

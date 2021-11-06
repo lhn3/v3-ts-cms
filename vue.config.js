@@ -1,6 +1,4 @@
-const path =require('path')
-
-module.exports={
-  outputDir:'build',
-  publicPath:'./'
+module.exports = {
+  outputDir: 'build',
+  publicPath: './'
 }
