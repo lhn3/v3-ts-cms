@@ -10,7 +10,7 @@ module.exports = {
     '@vue/prettier',
     '@vue/prettier/@typescript-eslint',
     //解决eslint和prettier冲突的问题
-    'plugin:prettier/recommended'
+    // 'plugin:prettier/recommended'
   ],
   parserOptions: {
     ecmaVersion: 2020
