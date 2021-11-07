@@ -9,15 +9,17 @@ module.exports = {
     '@vue/typescript/recommended',
     '@vue/prettier',
     '@vue/prettier/@typescript-eslint',
-    //解决eslint和prettier冲突的问题
-    'plugin:prettier/recommended'
+    // 解决eslint和prettier冲突的问题
+    // 'plugin:prettier/recommended',
+    //关闭eslint
+    // 'plugin:vue/essential'
   ],
   parserOptions: {
     ecmaVersion: 2020
   },
-  rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    '@typescript-eslint/no-explicit-any': 'off'
-  }
+  // rules: {
+  //   'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+  //   'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+  //   '@typescript-eslint/no-explicit-any': 'off',
+  // }
 }
