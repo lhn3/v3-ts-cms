@@ -14,7 +14,9 @@ import {
   ElTabPane,
   ElForm,
   ElFormItem,
-  ElInput
+  ElInput,
+  ElCheckbox,
+  ElLink
 } from 'element-plus/lib'
 
 const components = [
@@ -30,8 +32,9 @@ const components = [
   ElTabPane,
   ElForm,
   ElFormItem,
-  ElInput
-
+  ElInput,
+  ElCheckbox,
+  ElLink
 ]
 
 export default function registerElement(app: App): void {

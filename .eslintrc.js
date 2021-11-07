@@ -8,7 +8,7 @@ module.exports = {
     'eslint:recommended',
     '@vue/typescript/recommended',
     '@vue/prettier',
-    '@vue/prettier/@typescript-eslint',
+    '@vue/prettier/@typescript-eslint'
     // 解决eslint和prettier冲突的问题
     // 'plugin:prettier/recommended',
     //关闭eslint
@@ -16,7 +16,7 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 2020
-  },
+  }
   // rules: {
   //   'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
   //   'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

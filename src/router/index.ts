@@ -11,8 +11,6 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/login/Login.vue')
   }
 
-
-
   // {
   //   path: '/about',
   //   name: 'About',
@@ -20,7 +18,6 @@ const routes: Array<RouteRecordRaw> = [
   //     import(/* webpackChunkName: "about" */ '../views/About.vue')
   // }
 ]
-
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

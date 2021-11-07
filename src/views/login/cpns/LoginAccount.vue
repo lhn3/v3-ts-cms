@@ -1,8 +1,8 @@
 <template>
   <div class="login-account">
     <!--    传入规则-->
-    <el-form :rules="rules" :model="account">
-    <!--  prop传入要验证的字段 -->
+    <el-form :rules="rules" :model="account" ref="formRef">
+      <!--  prop传入要验证的字段 -->
       <el-form-item label="账号" prop="username">
         <el-input v-model="account.username"/>
       </el-form-item>
@@ -14,7 +14,9 @@
 </template>
 
 <script>
-  import { defineComponent, reactive } from 'vue'
+  import { defineComponent, reactive, ref } from 'vue'
+  import { ElForm } from 'element-plus/lib'
+  import { rules } from '../config/rules.ts'
 
   export default defineComponent({
     name: 'LoginAccount',
@@ -24,47 +26,28 @@
         username: '',
         password: ''
       })
+      //监听表单验证成功与否
+      // const formRef = ref<InstanceType<typeof ElForm>>()
+      const formRef = ref()
 
-      //制定输入规则
-      const rules = {
-        //用户名规则
-        username: [
-          //必传
-          {
-            required: true,
-            message: '请输入用户名！',
-            trigger: 'blur'
-          },
-          //正则匹配内容
-          {
-            pattern: /^[0-9a-zA-Z]{3,12}$/,
-            message: '请输入3-12数字或英文用户名！',
-            trigger: 'blur'
+      const loginAction = () => {
+        //表单验证成功返回true
+        formRef.value?.validate(v => {
+          if (v) {
+            console.log('登陆成功')
+          } else {
+            console.log('登陆失败')
           }
-        ],
-        password: [
-          //必传
-          {
-            required: true,
-            message: '请输入密码！',
-            trigger: 'blur'
-          },
-          //正则匹配内容
-          {
-            pattern: /^[0-9a-zA-Z]{6,15}$/,
-            message: '请输入6-15位密码！',
-            trigger: 'blur'
-          }
-        ]
+        })
       }
       return {
         account,
-        rules
+        rules,
+        loginAction,
+        formRef
       }
     }
   })
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
