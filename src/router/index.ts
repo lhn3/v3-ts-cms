@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import localCache from '@/utils/cache'
+
 
 //懒加载
 const Login = () => import('../views/login/Login.vue')
-const Main = () => import('../views/Main.vue')
+const Main = () => import('../views/main/Main.vue')
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -31,6 +33,14 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+//导航守卫
+//登陆之后就不能访问登录页面
+router.beforeEach((to)=>{
+  if (to.path==='/login' && localCache.getCache('token')){
+    router.push('/main')
+  }
 })
 
 export default router

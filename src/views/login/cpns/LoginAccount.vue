@@ -36,18 +36,9 @@
         //表单验证成功返回true
         formRef.value?.validate((v) => {
           if (v) {
-            //  判断是否有记住密码
-            if (isRememberKey) {
-              //  将密码写入本地
-              localCache.setCache('username', account.username)
-              localCache.setCache('password', account.password)
-            } else {
-              localCache.delCache('username')
-              localCache.delCache('password')
-            }
-
           //登录操作
-            store.dispatch('login/accountLogin',{name:account.username,password:account.password})
+            store.dispatch('login/accountLogin',
+              {name:account.username,password:account.password,isRememberKey:isRememberKey})
           }
 
         })
