@@ -1,22 +1,27 @@
 import myRequest from './request'
 import { BASE_URL, TIME_OUT } from './request/config'
+import localCache from '@/utils/cache'
+
 
 //创建一个请求实例
 const myAxios = new myRequest({
   baseURL: BASE_URL,
-  timeout: TIME_OUT
+  timeout: TIME_OUT,
   //拦截器
-  // interceptors:{
-  //   requestInterceptor(config){
-  //     console.log('请求成功拦截')
-  //     //添加加载动画
-  //     return config
-  //   },
-  //   responseInterceptor(res){
-  //     console.log('响应成功拦截')
-  //     return res
-  //   },
-  // }
+  interceptors: {
+    requestInterceptor(config) {
+      //携带token发送请求
+      let token = localCache.getCache('token')
+      if (token) {
+        config.headers!.Authorization = `Bearer ${token}`
+      }
+      return config
+    }
+    //   responseInterceptor(res){
+    //     console.log('响应成功拦截')
+    //     return res
+    //   },
+  }
 })
 
 export default myAxios

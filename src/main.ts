@@ -1,13 +1,15 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import { store } from './store'
 import myAxios from '@/service'
 //按需引入element-plus
 import registerApp from './global'
 //初始化css
 import 'normalize.css'
 import './assets/css/index.css'
+//保持vuex刷新数据存在
+import localVuex from './store'
 
 const app = createApp(App)
 
@@ -18,7 +20,7 @@ app.use(store)
 app.use(router)
 
 app.mount('#app')
-
+localVuex()
 //定义返回类型--------------------------------------------------------------------
 // interface DataType {
 //   data: any

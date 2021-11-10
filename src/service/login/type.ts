@@ -1,14 +1,9 @@
-
 export interface IAccount {
-  name:string,
-  password:string
+  name: string,
+  password: string
 }
 
-export interface ILoginResponse {
+export interface ILoginResponse<T = any> {
   code: number
-  data: {
-    id:number,
-    name:string,
-    token:string
-  }
+  data: T
 }
