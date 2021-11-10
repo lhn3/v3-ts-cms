@@ -15,17 +15,19 @@
 
 <script lang="ts">
   import { defineComponent, reactive, ref } from 'vue'
+  import {useStore} from 'vuex'
   import { ElForm } from 'element-plus/lib'
   import { rules } from '@/views/login/config/rules'
-  // import localCache from '@/utils/cache'
+  import localCache from '@/utils/cache'
 
   export default defineComponent({
     name: 'LoginAccount',
     setup() {
+      const store=useStore()
       //双向绑定
       const account = reactive({
-        username: '',
-        password: ''
+        username: localCache.getCache('username') ?? '',
+        password: localCache.getCache('password') ?? ''
       })
       //监听表单验证成功与否
       const formRef = ref<InstanceType<typeof ElForm>>()
@@ -33,10 +35,21 @@
       const loginAction = (isRememberKey: boolean) => {
         //表单验证成功返回true
         formRef.value?.validate((v) => {
-          //  判断是否有记住密码
-          console.log(v)
-          if (isRememberKey) {
+          if (v) {
+            //  判断是否有记住密码
+            if (isRememberKey) {
+              //  将密码写入本地
+              localCache.setCache('username', account.username)
+              localCache.setCache('password', account.password)
+            } else {
+              localCache.delCache('username')
+              localCache.delCache('password')
+            }
+
+          //登录操作
+            store.dispatch('login/accountLogin',{name:account.username,password:account.password})
           }
+
         })
       }
       return {
