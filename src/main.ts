@@ -10,8 +10,17 @@ import 'normalize.css'
 import './assets/css/index.css'
 //保持vuex刷新数据存在
 import localVuex from './store'
+//导入所有图标
+import * as Icon from '@element-plus/icons'
 
 const app = createApp(App)
+
+console.log(Icon)
+
+// for(let i of Icon){
+//   app.component(i.name, i)
+// }
+
 
 //按需引入
 app.use(registerApp)

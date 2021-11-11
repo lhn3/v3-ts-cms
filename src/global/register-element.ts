@@ -20,6 +20,11 @@ import {
   ElContainer,
   ElHeader,
   ElMain,
+  ElMenu,
+  ElSubMenu,
+  ElMenuItemGroup,
+  ElMenuItem,
+  ElIcon
 } from 'element-plus/lib'
 
 const components = [
@@ -41,6 +46,11 @@ const components = [
   ElContainer,
   ElHeader,
   ElMain,
+  ElMenu,
+  ElSubMenu,
+  ElMenuItemGroup,
+  ElMenuItem,
+  ElIcon
 ]
 
 export default function registerElement(app: App): void {
