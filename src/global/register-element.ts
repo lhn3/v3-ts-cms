@@ -1,6 +1,13 @@
 import { App } from 'vue'
 //导入所需的组件
 import 'element-plus/dist/index.css'
+//导入所有图标
+import {
+  Monitor,
+  DArrowLeft,
+  DArrowRight,
+} from '@element-plus/icons'
+
 import {
   ElButton,
   ElTable,
@@ -50,7 +57,12 @@ const components = [
   ElSubMenu,
   ElMenuItemGroup,
   ElMenuItem,
-  ElIcon
+
+  //图标
+  ElIcon,
+  Monitor,
+  DArrowLeft,
+  DArrowRight,
 ]
 
 export default function registerElement(app: App): void {

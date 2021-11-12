@@ -1,19 +1,24 @@
 <template>
   <div class="main">
     <el-container class="main-content">
-      <el-aside width="200px">
-        <NavMenu></NavMenu>
+      <el-aside :width="isFolds?'60px':'200px'">
+        <NavMenu :isFoldMenus="isFolds"/>
 
       </el-aside>
       <el-container class="page">
         <el-header class="page-header">
-                  <div>
-                    <p v-if="$store.state.login.token">欢迎{{$store.state.login.userInfo.name}}</p>
-                    <p v-else><router-link to="/login">登录</router-link></p>
-                  </div>
+          <NavHeader @isFoldMenus="isFoldMenus"/>
+          <div>
+            <p v-if="$store.state.login.token">欢迎{{$store.state.login.userInfo.name}}</p>
+            <p v-else>
+              <router-link to="/login">登录</router-link>
+            </p>
+          </div>
         </el-header>
         <el-container class="page-content">
-          <el-main>Main</el-main>
+          <el-main>
+            <router-view></router-view>
+          </el-main>
         </el-container>
       </el-container>
     </el-container>
@@ -23,12 +28,26 @@
 </template>
 
 <script lang="ts">
-  import {defineComponent} from 'vue'
-  import {NavMenu} from '@/components/nav-menu'
+  import { defineComponent, ref } from 'vue'
+  import { NavMenu } from '@/components/nav-menu'
+  import { NavHeader } from '@/components/nav-header'
+
   export default defineComponent({
     name: 'Main',
-    components:{
-      NavMenu
+    components: {
+      NavMenu,
+      NavHeader
+    },
+    setup() {
+      let isFolds = ref(false)
+      const isFoldMenus = (isFold: boolean) => {
+        isFolds.value = isFold
+      }
+
+      return {
+        isFoldMenus,
+        isFolds
+      }
     }
   })
 </script>

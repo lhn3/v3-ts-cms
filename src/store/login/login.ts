@@ -5,6 +5,7 @@ import { accountLoginRequest, getUserInfo, getUserMenus } from '@/service/login/
 import { IAccount } from '@/service/login/type'
 import localCache from '@/utils/cache'
 import router from '@/router'
+import {menusRouter} from '@/utils/menusRouter'
 
 export const loginModule: Module<ILoginState, IRootState> = {
   namespaced: true,
@@ -25,6 +26,12 @@ export const loginModule: Module<ILoginState, IRootState> = {
     },
     saveUserMenus(state, menusData: any) {
       state.userMenus = menusData
+      //保存菜单之后就导出所需要的菜单路由
+      const routes=menusRouter(menusData)
+      //添加所有路由
+      routes.forEach((route)=>{
+        router.addRoute('main',route)
+      })
     }
   },
   actions: {
