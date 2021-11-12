@@ -6,6 +6,8 @@ import {
   Monitor,
   DArrowLeft,
   DArrowRight,
+  ArrowDown,
+  Avatar,
 } from '@element-plus/icons'
 
 import {
@@ -31,7 +33,10 @@ import {
   ElSubMenu,
   ElMenuItemGroup,
   ElMenuItem,
-  ElIcon
+  ElIcon,
+  ElDropdown,
+  ElDropdownItem,
+  ElDropdownMenu,
 } from 'element-plus/lib'
 
 const components = [
@@ -57,12 +62,18 @@ const components = [
   ElSubMenu,
   ElMenuItemGroup,
   ElMenuItem,
+  ElDropdown,
+  ElDropdownItem,
+  ElDropdownMenu,
+  ElAvatar,
 
   //图标
   ElIcon,
   Monitor,
   DArrowLeft,
   DArrowRight,
+  ArrowDown,
+  Avatar,
 ]
 
 export default function registerElement(app: App): void {

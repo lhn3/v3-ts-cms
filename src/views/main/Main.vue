@@ -8,12 +8,6 @@
       <el-container class="page">
         <el-header class="page-header">
           <NavHeader @isFoldMenus="isFoldMenus"/>
-          <div>
-            <p v-if="$store.state.login.token">欢迎{{$store.state.login.userInfo.name}}</p>
-            <p v-else>
-              <router-link to="/login">登录</router-link>
-            </p>
-          </div>
         </el-header>
         <el-container class="page-content">
           <el-main>
