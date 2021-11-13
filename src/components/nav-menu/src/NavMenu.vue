@@ -5,7 +5,8 @@
       <span class="title" v-if="!isFoldMenus">Vue3+TS</span>
     </div>
     <!--             :unique-opened="true" 唯一打开-->
-    <el-menu default-active="1" class="el-menu"
+    <el-menu :default-active="defaultActive"
+             class="el-menu"
              :unique-opened="true"
              text-color="#b7bdc3"
              active-text-color="#0a60bd"
@@ -69,10 +70,12 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed } from 'vue'
-  import {useRouter} from 'vue-router'
+  import { defineComponent, computed, ref } from 'vue'
+  import localCache from '@/utils/cache'
+  import { useRoute, useRouter } from 'vue-router'
   //导入自定义useStore
   import { useStore } from '@/store'
+  import { getMenuId } from '@/utils/menusRouter'
 
   export default defineComponent({
     name: 'NavMenu',
@@ -84,17 +87,28 @@
     },
     setup() {
       const store = useStore()
-      const router=useRouter()
+      const router = useRouter()
+      const route = useRoute()
+      //获取对应用户下所有菜单
       const menus = computed(() => {
-        const res = store.state.login.userMenus
-        return res
+        return store.state.login.userMenus
       })
-      const menuClick=(url:string)=>{
+
+      //获取刷新后保持选择的菜单id
+      const routePath = route.path
+      let res = getMenuId(menus.value,routePath)!
+      //刷新保持菜单选择
+      const defaultActive = ref(res.id+'')
+
+      //点击切换路由
+      const menuClick = (url: string) => {
         router.push(url)
       }
+
       return {
         menus,
-        menuClick
+        menuClick,
+        defaultActive
       }
     }
   })

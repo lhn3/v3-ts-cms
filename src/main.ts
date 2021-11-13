@@ -16,12 +16,12 @@ const app = createApp(App)
 
 //按需引入
 app.use(registerApp)
-
 app.use(store)
+//先执行再注册路由
+localVuex()
 app.use(router)
 
 app.mount('#app')
-localVuex()
 //定义返回类型--------------------------------------------------------------------
 // interface DataType {
 //   data: any

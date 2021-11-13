@@ -1,4 +1,4 @@
-import {formConfigType } from '@/baseUI'
+import {formConfigType } from '@/baseUI/form'
 
 //到处所有的form的配置
 export const FormConfig: formConfigType = {

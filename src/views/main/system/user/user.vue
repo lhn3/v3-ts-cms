@@ -7,7 +7,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue'
-  import { MyForm } from '@/baseUI'
+  import { MyForm } from '@/baseUI/form'
   import { FormConfig } from './config/formConfig'
 
   export default defineComponent({

@@ -44,7 +44,7 @@
 
 <script lang="ts">
   import { defineComponent, PropType, ref } from 'vue'
-  import { formType } from '@/baseUI'
+  import { formType } from '@/baseUI/form'
 
   export default defineComponent({
     name: 'MyForm',

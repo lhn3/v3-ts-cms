@@ -24,7 +24,7 @@ export function menusRouter(userMenus: any): Array<RouteRecordRaw> {
         const res = allRoutes.find((v) => {
           return v.path === menu.url
         })
-        if (res){
+        if (res) {
           routes.push(res)
         }
       } else {
@@ -36,4 +36,30 @@ export function menusRouter(userMenus: any): Array<RouteRecordRaw> {
 
   func(userMenus)
   return routes
+}
+
+//获取刷新后保持选择的菜单id
+export function getMenuId(userMenu: any, routePath: any,bread?:Array<Object>): any {
+  for (let item of userMenu) {
+    if (item.type == 1) {
+      const res = getMenuId(item.children ?? [], routePath)
+      if (res) {
+        //如果要获取面包屑
+        if(bread){
+          bread.push({ name:item.name,path:item.url })
+          bread.push({ name:res.name,path:res.url })
+          return bread
+        }
+        return res
+      }
+    } else if (item.type == 2 && item.url == routePath) {
+      return item
+    }
+  }
+}
+
+//获取面包屑内容 上级菜单名/此级菜单名
+export function getBreadcrumb(userMenu: any, routePath: any) {
+  let bread:Array<Object>=[]
+  return getMenuId(userMenu, routePath,bread)
 }
