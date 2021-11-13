@@ -96,9 +96,9 @@
 
       //获取刷新后保持选择的菜单id
       const routePath = route.path
-      let res = getMenuId(menus.value,routePath)!
+      let res = getMenuId(menus.value,routePath)
       //刷新保持菜单选择
-      const defaultActive = ref(res.id+'')
+      const defaultActive = ref(res+'')
 
       //点击切换路由
       const menuClick = (url: string) => {

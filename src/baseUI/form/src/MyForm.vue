@@ -10,7 +10,12 @@
           <template v-if="item.type == 'input'">
             <el-col v-bind="colSpan">
               <el-form-item :label="item.label">
-                <el-input :show-password="item.isShow" :placeholder="item.placeholder" v-bind="item.others"/>
+                <el-input
+                  :show-password="item.isShow"
+                  :placeholder="item.placeholder"
+                  v-bind="item.others"
+                  v-model="formData[`${item.field}`]"
+                />
               </el-form-item>
             </el-col>
           </template>
@@ -18,7 +23,12 @@
           <template v-else-if="item.type == 'select'">
             <el-col v-bind="colSpan">
               <el-form-item :label="item.label">
-                <el-select style="width: 100%;" :placeholder="item.placeholder" v-bind="item.others">
+                <el-select
+                  style="width: 100%;"
+                  :placeholder="item.placeholder"
+                  v-bind="item.others"
+                  v-model="formData[`${item.field}`]"
+                >
                   <template v-for="option in item.options" :key="item.label">
                     <el-option :value="option.value">{{option.title}}</el-option>
                   </template>
@@ -31,7 +41,11 @@
             <el-col v-bind="colSpan">
               <el-form-item :label="item.label">
                 <!-- v-bind="item.others" 直接遍历对象中所有属性绑定-->
-                <el-date-picker style="width: 100%;" v-bind="item.others"></el-date-picker>
+                <el-date-picker
+                  style="width: 100%;"
+                  v-bind="item.others"
+                  v-model="formData[`${item.field}`]"
+                ></el-date-picker>
               </el-form-item>
             </el-col>
           </template>
@@ -49,14 +63,17 @@
   export default defineComponent({
     name: 'MyForm',
     props: {
+      //所需要的表单内容
       formItem: {
         type: Array as PropType<formType[]>,
         default: () => []
       },
+      //label宽度
       labelWidth: {
         type: String,
         default: () => '100px'
       },
+      //一行几个表单
       colSpan: {
         type: Object,
         default: () => ({
@@ -67,6 +84,10 @@
           sm: 24,
           xs: 24
         })
+      },
+      formData:{
+        type:Object,
+        require:true
       }
     },
     setup() {

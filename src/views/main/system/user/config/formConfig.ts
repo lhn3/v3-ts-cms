@@ -1,22 +1,31 @@
-import {formConfigType } from '@/baseUI/form'
+import { formConfigType } from '@/baseUI/form'
 
 //到处所有的form的配置
 export const FormConfig: formConfigType = {
   formItem: [
     {
       type: 'input',
+      label: 'ID',
+      field: 'id',
+      placeholder: '请输入ID'
+    },
+    {
+      type: 'input',
       label: '用户名',
+      field: 'name',
       placeholder: '请输入用户名'
     },
     {
       type: 'input',
       label: '密码',
-      isShow: false,
+      field: 'password',
+      show: true,
       placeholder: '请输入密码'
     },
     {
       type: 'select',
-      label: '爱好',
+      label: '运动',
+      field: 'sport',
       placeholder: '请选择爱好',
       options: [
         { title: '篮球', value: '篮球' },
@@ -27,6 +36,7 @@ export const FormConfig: formConfigType = {
     {
       type: 'date-picker',
       label: '选择时间',
+      field: 'time',
       others: {
         //时间区间
         type: 'daterange',
@@ -36,6 +46,6 @@ export const FormConfig: formConfigType = {
       }
     }
   ],
-  labelWidth: '100px',
+  labelWidth: '100px'
   // colSpan: { span: 8 },
 }

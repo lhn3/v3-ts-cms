@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref, computed } from 'vue'
+  import { defineComponent, ref, computed} from 'vue'
   import UserInfo from './UserInfo.vue'
   import { Breadcrumb } from '@/baseUI/breadcrumb'
   import { useRoute } from 'vue-router'

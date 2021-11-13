@@ -1,4 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
+import {breadType} from '@/baseUI/breadcrumb'
 
 export function menusRouter(userMenus: any): Array<RouteRecordRaw> {
   const routes: Array<RouteRecordRaw> = []
@@ -39,7 +40,7 @@ export function menusRouter(userMenus: any): Array<RouteRecordRaw> {
 }
 
 //获取刷新后保持选择的菜单id
-export function getMenuId(userMenu: any, routePath: any,bread?:Array<Object>): any {
+export function getMenuId(userMenu: any, routePath: any,bread?:Array<breadType>): any {
   for (let item of userMenu) {
     if (item.type == 1) {
       const res = getMenuId(item.children ?? [], routePath)
@@ -50,7 +51,7 @@ export function getMenuId(userMenu: any, routePath: any,bread?:Array<Object>): a
           bread.push({ name:res.name,path:res.url })
           return bread
         }
-        return res
+        return res.id
       }
     } else if (item.type == 2 && item.url == routePath) {
       return item
@@ -60,6 +61,6 @@ export function getMenuId(userMenu: any, routePath: any,bread?:Array<Object>): a
 
 //获取面包屑内容 上级菜单名/此级菜单名
 export function getBreadcrumb(userMenu: any, routePath: any) {
-  let bread:Array<Object>=[]
+  let bread:Array<breadType>=[]
   return getMenuId(userMenu, routePath,bread)
 }
