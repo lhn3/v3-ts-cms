@@ -1,33 +1,36 @@
 <template>
   <div class="my-form">
-    <el-form label-width="80px">
+    <!--label文字宽度-->
+    <el-form :label-width="labelWidth">
       <!--      一行-->
+      <!--左右外边距各10-->
       <el-row :gutter="20">
-        <template v-for="item in formItem">
-<!--          普通输入框-->
+        <template v-for="item in formItem" :key="item.label">
+          <!--          普通输入框-->
           <template v-if="item.type == 'input'">
-            <el-col :span="8">
+            <el-col v-bind="colSpan">
               <el-form-item :label="item.label">
                 <el-input :show-password="item.isShow" :placeholder="item.placeholder" v-bind="item.others"/>
               </el-form-item>
             </el-col>
           </template>
-<!--          选择输入框-->
+          <!--          选择输入框-->
           <template v-else-if="item.type == 'select'">
-            <el-col :span="8">
+            <el-col v-bind="colSpan">
               <el-form-item :label="item.label">
                 <el-select style="width: 100%;" :placeholder="item.placeholder" v-bind="item.others">
-                  <template v-for="option in item.options">
+                  <template v-for="option in item.options" :key="item.label">
                     <el-option :value="option.value">{{option.title}}</el-option>
                   </template>
                 </el-select>
               </el-form-item>
             </el-col>
           </template>
-<!--          时间选择输入框-->
+          <!--          时间选择输入框-->
           <template v-else-if="item.type == 'date-picker'">
-            <el-col :span="8">
+            <el-col v-bind="colSpan">
               <el-form-item :label="item.label">
+                <!-- v-bind="item.others" 直接遍历对象中所有属性绑定-->
                 <el-date-picker style="width: 100%;" v-bind="item.others"></el-date-picker>
               </el-form-item>
             </el-col>
@@ -40,7 +43,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue'
+  import { defineComponent, PropType, ref } from 'vue'
   import { formType } from '@/baseUI'
 
   export default defineComponent({
@@ -48,17 +51,31 @@
     props: {
       formItem: {
         type: Array as PropType<formType[]>,
-        default: []
+        default: () => []
+      },
+      labelWidth: {
+        type: String,
+        default: () => '100px'
+      },
+      colSpan: {
+        type: Object,
+        default: () => ({
+          //一共24份，表示每个el-col占的份数
+          xl: 6,
+          lg: 8,
+          md: 12,
+          sm: 24,
+          xs: 24
+        })
       }
     },
     setup() {
-
     }
   })
 </script>
 
 <style scoped lang="less">
   .my-form {
-    padding: 20px;
+    padding: 20px 30px 0;
   }
 </style>
