@@ -9,11 +9,13 @@
         <el-header class="page-header">
           <NavHeader @isFoldMenus="isFoldMenus"/>
         </el-header>
-        <el-container class="page-content">
-          <el-main>
+
+        <el-main class="page-content">
+          <div class="page-info">
             <router-view></router-view>
-          </el-main>
-        </el-container>
+          </div>
+        </el-main>
+
       </el-container>
     </el-container>
   </div>
@@ -64,6 +66,12 @@
 
   .page-content {
     height: calc(100% - 48px);
+
+    .page-info {
+      background-color: #fff;
+      border-radius: 5px;
+    }
+
   }
 
   .el-header,

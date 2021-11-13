@@ -37,6 +37,11 @@ import {
   ElDropdown,
   ElDropdownItem,
   ElDropdownMenu,
+  ElRow,
+  ElCol,
+  ElSelect,
+  ElOption,
+  ElDatePicker,
 } from 'element-plus/lib'
 
 const components = [
@@ -66,6 +71,11 @@ const components = [
   ElDropdownItem,
   ElDropdownMenu,
   ElAvatar,
+  ElRow,
+  ElCol,
+  ElSelect,
+  ElOption,
+  ElDatePicker,
 
   //图标
   ElIcon,
