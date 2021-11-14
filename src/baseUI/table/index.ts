@@ -1,7 +1,8 @@
 import MyTable from './src/MyTable.vue'
-import {tableType} from './type'
+import {tableType,tableConfigType} from './type'
 
 export {
   MyTable,
-  tableType
+  tableType,
+  tableConfigType
 }

@@ -10,6 +10,8 @@ import {
   Avatar,
   Refresh,
   Search,
+  Edit,
+  Delete
 } from '@element-plus/icons'
 
 import {
@@ -46,7 +48,8 @@ import {
   ElDatePicker,
   ElBreadcrumb,
   ElBreadcrumbItem,
-  ElTableColumn
+  ElTableColumn,
+  ElPagination,
 } from 'element-plus/lib'
 
 const components = [
@@ -84,6 +87,7 @@ const components = [
   ElBreadcrumb,
   ElBreadcrumbItem,
   ElTableColumn,
+  ElPagination,
 
 
   //图标
@@ -95,6 +99,8 @@ const components = [
   Avatar,
   Refresh,
   Search,
+  Edit,
+  Delete
 ]
 
 export default function registerElement(app: App): void {

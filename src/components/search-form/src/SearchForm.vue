@@ -2,7 +2,7 @@
   <div class="search-form">
     <MyForm v-bind="FormConfig" :formData="formData">
       <template #header>
-        <h2 class="header">高级检索</h2>
+        <h1 class="header">高级检索</h1>
       </template>
       <template #footer>
         <div class="footer">
