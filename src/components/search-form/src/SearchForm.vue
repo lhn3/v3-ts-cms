@@ -42,7 +42,7 @@
         require: true
       },
       formData: {
-        type: Array,
+        type: Object,
         require: true
       }
     },

@@ -46,6 +46,7 @@ import {
   ElDatePicker,
   ElBreadcrumb,
   ElBreadcrumbItem,
+  ElTableColumn
 } from 'element-plus/lib'
 
 const components = [
@@ -82,6 +83,8 @@ const components = [
   ElDatePicker,
   ElBreadcrumb,
   ElBreadcrumbItem,
+  ElTableColumn,
+
 
   //图标
   ElIcon,

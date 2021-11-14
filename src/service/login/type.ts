@@ -4,7 +4,4 @@ export interface IAccount {
   isRememberKey: boolean
 }
 
-export interface ILoginResponse<T = any> {
-  code: number
-  data: T
-}
+

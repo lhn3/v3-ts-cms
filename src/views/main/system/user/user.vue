@@ -1,20 +1,27 @@
 <template>
   <div class="user">
-    <!--    v-bind遍历绑定属性并传递到组件中-->
-    <SearchForm :FormConfig="FormConfig" :formData="formData" ></SearchForm>
+    <!--    搜索查询-->
+    <SearchForm :FormConfig="FormConfig" :formData="formData"></SearchForm>
+    <!--    数据展示-->
+    <MyTable :tableData="tableData" :TableConfig="TableConfig"></MyTable>
+
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, reactive } from 'vue'
+  import { defineComponent, reactive, computed } from 'vue'
+  import { useStore } from '@/store'
   import { FormConfig } from './config/formConfig'
+  import { TableConfig } from './config/tableConfig'
   //导入设计好的form，并传入配置
   import { SearchForm } from '@/components/search-form'
+  import {MyTable} from '@/baseUI/table'
 
   export default defineComponent({
     name: 'user',
     components: {
-      SearchForm
+      SearchForm,
+      MyTable
     },
     setup() {
       //定义双向绑定的搜索字段
@@ -26,10 +33,27 @@
         time: []
       })
 
+      //发送网络请求
+      const store = useStore()
+      store.dispatch('system/getSystemAction', {
+        url: 'users/list',
+        query: {
+          offset: 0,
+          size: 10
+        }
+      })
+
+      //要展示的数据
+      const tableData = computed(() => {
+        return store.state.system.userList
+      })
+
       return {
         //传入需要创建的表单
         FormConfig,
-        formData
+        formData,
+        tableData,
+        TableConfig
       }
     }
   })

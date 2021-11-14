@@ -17,7 +17,6 @@ export const loginModule: Module<ILoginState, IRootState> = {
       userMenus: []
     }
   },
-  getters: {},
   mutations: {
     saveToken(state, token: string) {
       state.token = token
