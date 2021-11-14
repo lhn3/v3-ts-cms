@@ -3,7 +3,20 @@
     <!--    搜索查询-->
     <SearchForm :FormConfig="FormConfig" :formData="formData"></SearchForm>
     <!--    数据展示-->
-    <MyTable :tableData="tableData" :TableConfig="TableConfig"></MyTable>
+    <MyTable :tableData="tableData" :TableConfig="TableConfig">
+      <template #status="scope">
+<!--        拿到的scope为插槽传入的数据-->
+        <el-button :type="scope.row.enable==1?'primary':'info'" plain>
+          {{scope.row.enable==1?'活跃':'不活跃'}}
+        </el-button>
+      </template>
+      <template #create="scope">
+        {{$filters.formatTime(scope.row.createAt)}}
+      </template>
+      <template #update="scope">
+        {{$filters.formatTime(scope.row.updateAt)}}
+      </template>
+    </MyTable>
 
   </div>
 </template>
