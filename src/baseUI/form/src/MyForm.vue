@@ -1,5 +1,6 @@
 <template>
   <div class="my-form">
+    <slot name="header"></slot>
     <!--label文字宽度-->
     <el-form :label-width="labelWidth">
       <!--      一行-->
@@ -52,6 +53,7 @@
         </template>
       </el-row>
     </el-form>
+    <slot name="footer"></slot>
   </div>
 
 </template>
@@ -85,9 +87,9 @@
           xs: 24
         })
       },
-      formData:{
-        type:Object,
-        require:true
+      formData: {
+        type: Object,
+        require: true
       }
     },
     setup() {

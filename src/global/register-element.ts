@@ -8,6 +8,8 @@ import {
   DArrowRight,
   ArrowDown,
   Avatar,
+  Refresh,
+  Search,
 } from '@element-plus/icons'
 
 import {
@@ -88,6 +90,8 @@ const components = [
   DArrowRight,
   ArrowDown,
   Avatar,
+  Refresh,
+  Search,
 ]
 
 export default function registerElement(app: App): void {
