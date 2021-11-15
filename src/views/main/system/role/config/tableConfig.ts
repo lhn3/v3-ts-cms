@@ -3,15 +3,14 @@ import { tableConfigType } from '@/baseUI/table'
 export const TableConfig: tableConfigType = {
   tableItem: [
     { props: 'id', label: 'ID', width: 100 },
-    { props: 'name', label: '用户名', width: 120 },
-    { props: 'realname', label: '真实姓名', width: 120 },
-    { props: 'enable', label: '状态', width: 120, slotName: 'status' },
-    { props: 'cellphone', label: '手机号码', width: 150 },
+    { props: 'name', label: '归属', width: 120 },
+    { props: 'intro', label: '权限', width: 120 },
+    // { props: 'menuList', label: '管理范围', width: 120 },
     { props: 'createAt', label: '创建时间', width: 200, slotName: 'create' },
     { props: 'updateAt', label: '更新时间', width: 200, slotName: 'update' },
     { label: '操作', slotName: 'control'}
   ],
   hasIndex: true,
   hasCheck: true,
-  title:'用户列表',
+  title:'角色列表',
 }

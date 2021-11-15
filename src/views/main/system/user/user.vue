@@ -4,7 +4,7 @@
     <SearchForm :FormConfig="FormConfig" :formData="formData"></SearchForm>
 
     <!--    数据展示-->
-    <SearchTable :TableConfig="TableConfig"></SearchTable>
+    <SearchTable :TableConfig="TableConfig" :pageName="pageName" :buttonName="buttonName"></SearchTable>
   </div>
 </template>
 
@@ -32,11 +32,16 @@
         time: []
       })
 
+      const pageName='users'
+      const buttonName='新建用户'
+
 
       return {
         //传入需要创建的表单
         FormConfig,
         formData,
+        pageName,
+        buttonName,
         TableConfig,
       }
     }

@@ -8,7 +8,7 @@
       <!--      展示选择-->
       <el-table-column v-if="hasCheck" type="selection" width="40" align="center"/>
       <!--      展示序号-->
-      <el-table-column v-if="haIndex" type="index" align="center" label="序号" width="50"/>
+      <el-table-column v-if="hasIndex" type="index" align="center" label="序号" width="50"/>
 
       <template v-for="title in tableItem" :key="title.props">
         <!--        一列设置-->
@@ -26,16 +26,16 @@
     </el-table>
     <div class="footer">
       <slot name="footer">
-<!--        <el-pagination-->
-<!--          v-model:currentPage="currentPage4"-->
-<!--          :page-sizes="[100, 200, 300, 400]"-->
-<!--          :page-size="100"-->
-<!--          layout="total, sizes, prev, pager, next, jumper"-->
-<!--          :total="400"-->
-<!--          @size-change="handleSizeChange"-->
-<!--          @current-change="handleCurrentChange"-->
-<!--        >-->
-<!--        </el-pagination>-->
+        <el-pagination
+          v-model:currentPage="currentPage4"
+          :page-sizes="[100, 200, 300, 400]"
+          :page-size="100"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="400"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+        >
+        </el-pagination>
 
       </slot>
     </div>
@@ -58,7 +58,7 @@
         type: Array as PropType<tableType[]>,
         default: () => []
       },
-      haIndex: {
+      hasIndex: {
         type: Boolean,
         default: false
       },

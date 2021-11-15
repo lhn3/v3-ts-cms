@@ -1,8 +1,8 @@
 <template>
   <div class="search-table">
-    <MyTable v-bind="TableConfig" :tableData="userTableData">
+    <MyTable v-bind="TableConfig" :tableData="tableData">
       <template #header>
-        <el-button type="primary">新建用户</el-button>
+        <el-button type="primary">{{buttonName}}</el-button>
       </template>
 
       <!--      修改状态的显示-->
@@ -21,8 +21,16 @@
       </template>
       <!--修改操作的显示-->
       <template #control>
-        <el-button type="primary" circle><el-icon><edit/></el-icon></el-button>
-        <el-button type="danger" circle><el-icon><delete/></el-icon></el-button>
+        <el-button type="primary" circle>
+          <el-icon>
+            <edit/>
+          </el-icon>
+        </el-button>
+        <el-button type="danger" circle>
+          <el-icon>
+            <delete/>
+          </el-icon>
+        </el-button>
       </template>
 
 
@@ -33,26 +41,34 @@
 
 <script lang="ts">
   import { computed, defineComponent } from 'vue'
-  import {MyTable} from '@/baseUI/table'
+  import { MyTable } from '@/baseUI/table'
   import { useStore } from '@/store'
 
 
   export default defineComponent({
     name: 'SearchTable',
-    components:{
+    components: {
       MyTable
     },
-    props:{
-      TableConfig:{
-        type:Object,
-        require:true
+    props: {
+      TableConfig: {
+        type: Object,
+        require: true
       },
+      pageName: {
+        type: String,
+        require: true
+      },
+      buttonName:{
+        type:String,
+        require:true
+      }
     },
-    setup(){
+    setup(props) {
       //发送网络请求
       const store = useStore()
       store.dispatch('system/getSystemAction', {
-        url: 'users/list',
+        pageName: props.pageName,
         query: {
           offset: 0,
           size: 10
@@ -60,11 +76,9 @@
       })
 
       //table要展示的数据
-      const tableData = computed(() => {
-        return store.state.system.userList
-      })
+      const tableData = computed(() => store.getters['system/gettersList'](props.pageName))
 
-      return{
+      return {
         tableData
       }
     }

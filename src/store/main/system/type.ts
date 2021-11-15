@@ -1,5 +1,7 @@
 
 export interface ISystemState {
-  userList:Array<any>,
-  userCount:number
+  usersList:Array<any>,
+  usersCount:number,
+  roleList:Array<any>,
+  roleCount:number,
 }
