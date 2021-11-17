@@ -1,18 +1,34 @@
 <template>
-  <div class="menu">
-    <h2>menu</h2>
+  <div class="goods">
+    <SearchForm :FormConfig="FormConfig" @pageSearch="pageSearch"></SearchForm>
+    <SearchTable :TableConfig="TableConfig" pageName="menu" buttonName="新建菜单"></SearchTable>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+  import { defineComponent } from 'vue'
+  import {SearchForm} from '@/components/search-form'
+  import {SearchTable} from '@/components/search-table'
+  import {FormConfig} from './config/formConfig'
+  import {TableConfig} from './config/tableConfig'
+  import { usePageSearch } from '@/hooks/usePageSearch'
 
-export default defineComponent({
-  name: 'Menu',
-  setup() {
-    return {}
-  }
-})
+  export default defineComponent({
+    name: 'menu',
+    components:{
+      SearchForm,
+      SearchTable
+    },
+    setup() {
+      const [searchTable,pageSearch]=usePageSearch()
+      return {
+        FormConfig,
+        TableConfig,
+        searchTable,
+        pageSearch
+      }
+    }
+  })
 </script>
 
 <style scoped></style>

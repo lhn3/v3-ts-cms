@@ -6,4 +6,6 @@ export interface ISystemState {
   roleCount:number,
   goodsList:Array<any>,
   goodsCount:number,
+  menuList: Array<any>,
+  menuCount: number,
 }

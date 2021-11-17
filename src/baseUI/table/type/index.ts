@@ -11,4 +11,5 @@ export interface tableConfigType {
   hasIndex?:boolean,
   hasCheck?:boolean,
   title?:string,
+  childs?:any
 }

@@ -12,19 +12,15 @@ export const systemModule: Module<ISystemState, IRootState> = {
       roleList: [],
       roleCount: 0,
       goodsList: [],
-      goodsCount: 0
+      goodsCount: 0,
+      menuList: [],
+      menuCount: 0
     }
   },
   getters: {
     gettersList(state: any) {
       return (pageName: string) => {
         return state[`${pageName}List`]
-        // switch (pageName) {
-        //   case 'users':
-        //     return state.usersList
-        //   case 'role':
-        //     return state.roleList
-        // }
       }
     },
     gettersCount(state: any) {
@@ -51,6 +47,12 @@ export const systemModule: Module<ISystemState, IRootState> = {
     },
     saveGoodsCount(state, payload) {
       state.goodsCount = payload
+    },
+    saveMenuList(state, payload) {
+      state.menuList = payload
+    },
+    saveMenuCount(state, payload) {
+      state.menuCount = payload
     }
   },
   actions: {

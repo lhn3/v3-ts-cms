@@ -4,7 +4,7 @@
       <h2 class="title">{{title}}</h2>
       <slot name="header"></slot>
     </div>
-    <el-table :data="tableData" border style="width: 100%" @selection-change="getRowFunc">
+    <el-table :data="tableData" border style="width: 100%" @selection-change="getRowFunc" v-bind="childs">
       <!--      展示选择-->
       <el-table-column v-if="hasCheck" type="selection" width="40" align="center"/>
       <!--      展示序号-->
@@ -12,7 +12,13 @@
 
       <template v-for="title in tableItem" :key="title.props">
         <!--        一列设置-->
-        <el-table-column show-overflow-tooltip :prop="title.props" :label="title.label" :width="title.width" align="center">
+        <el-table-column
+          show-overflow-tooltip
+          :prop="title.props"
+          :label="title.label"
+          :width="title.width"
+          align="center"
+        >
           <!--          默认有一个default插槽-->
           <template #default="scope">
             <!--            scope.row一行的数据-->
@@ -77,6 +83,10 @@
       page: {
         type: Object,
         default: () => ({ pageSize: 10, pageCurrent: 1 })
+      },
+      childs: {
+        type: Object,
+        default: () => ({})
       }
     },
     emits: ['getRowInfo', 'update:page'],
