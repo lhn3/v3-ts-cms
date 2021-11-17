@@ -17,26 +17,24 @@ export const FormConfig: formConfigType = {
     },
     {
       type: 'input',
-      label: '密码',
-      field: 'password',
-      show: true,
-      placeholder: '请输入密码'
+      label: '真实姓名',
+      field: 'realname',
+      placeholder: '请输入真实姓名'
     },
     {
       type: 'select',
-      label: '运动',
-      field: 'sport',
-      placeholder: '请选择爱好',
+      label: '状态',
+      field: 'enable',
+      placeholder: '请选择状态',
       options: [
-        { title: '篮球', value: '篮球' },
-        { title: '足球', value: '足球' },
-        { title: '羽毛球', value: '羽毛球' }
+        { title: '活跃', value: 1 },
+        { title: '不活跃', value: 0 },
       ]
     },
     {
       type: 'date-picker',
       label: '选择时间',
-      field: 'time',
+      field: 'createAt',
       others: {
         //时间区间
         type: 'daterange',

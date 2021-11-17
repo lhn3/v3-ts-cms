@@ -15,7 +15,7 @@
                   :show-password="item.isShow"
                   :placeholder="item.placeholder"
                   v-bind="item.others"
-                  v-model="formData[`${item.field}`]"
+                  v-model="modelValue[`${item.field}`]"
                 />
               </el-form-item>
             </el-col>
@@ -28,7 +28,7 @@
                   style="width: 100%;"
                   :placeholder="item.placeholder"
                   v-bind="item.others"
-                  v-model="formData[`${item.field}`]"
+                  v-model="modelValue[`${item.field}`]"
                 >
                   <template v-for="option in item.options" :key="item.label">
                     <el-option :value="option.value">{{option.title}}</el-option>
@@ -45,7 +45,7 @@
                 <el-date-picker
                   style="width: 100%;"
                   v-bind="item.others"
-                  v-model="formData[`${item.field}`]"
+                  v-model="modelValue[`${item.field}`]"
                 ></el-date-picker>
               </el-form-item>
             </el-col>
@@ -59,8 +59,9 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType, ref } from 'vue'
+  import { defineComponent, PropType, ref,computed,watch } from 'vue'
   import { formType } from '@/baseUI/form'
+  import formData from '../../../../../课堂/code/hy-vue3-cms(预习)/src/views/main/system/user/config/search.config'
 
   export default defineComponent({
     name: 'MyForm',
@@ -87,12 +88,15 @@
           xs: 24
         })
       },
-      formData: {
+      modelValue: {
         type: Object,
         require: true
       }
     },
     setup() {
+      return{
+      }
+
     }
   })
 </script>

@@ -17,10 +17,6 @@ const myAxios = new myRequest({
       }
       return config
     }
-    //   responseInterceptor(res){
-    //     console.log('响应成功拦截')
-    //     return res
-    //   },
   }
 })
 

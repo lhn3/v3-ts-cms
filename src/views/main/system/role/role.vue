@@ -1,6 +1,6 @@
 <template>
   <div class="role">
-    <SearchForm :FormConfig="FormConfig" :formData="formData"></SearchForm>
+    <SearchForm :FormConfig="FormConfig"></SearchForm>
     <SearchTable :TableConfig="TableConfig" :pageName="pageName" :buttonName="buttonName"></SearchTable>
   </div>
 </template>
@@ -19,20 +19,12 @@ export default defineComponent({
     SearchTable,
   },
   setup() {
-    //定义双向绑定的搜索字段
-    const formData = reactive({
-      id: '',
-      name: '',
-      intro: '',
-      time: []
-    })
 
     const pageName='role'
     const buttonName='新建角色'
 
     return {
       FormConfig,
-      formData,
       TableConfig,
       buttonName,
       pageName,

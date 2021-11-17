@@ -47,18 +47,10 @@ export const systemModule: Module<ISystemState, IRootState> = {
       //发送请求获取用户列表并保存
       const dataList = await getDataList(url, query)
       const { list, totalCount } = dataList.data
-      switch (pageName) {
-        case 'users':
-          action.commit('saveUsersList', list)
-          action.commit('saveUsersCount', totalCount)
-          break
-        case 'role':
-          action.commit('saveRoleList', list)
-          action.commit('saveRoleCount', totalCount)
-          break
-      }
-
-
+      //将一个字符串首字母大写
+      const title = pageName.replace(pageName[0], pageName.slice(0, 1).toUpperCase())
+      action.commit(`save${title}List`, list)
+      action.commit(`save${title}Count`, totalCount)
     }
   }
 }

@@ -59,27 +59,33 @@
         type: String,
         require: true
       },
-      buttonName:{
-        type:String,
-        require:true
+      buttonName: {
+        type: String,
+        require: true
       }
     },
     setup(props) {
       //发送网络请求
       const store = useStore()
-      store.dispatch('system/getSystemAction', {
-        pageName: props.pageName,
-        query: {
-          offset: 0,
-          size: 10
-        }
-      })
+      const getInfo = (formData: any = {}) => {
+        store.dispatch('system/getSystemAction', {
+          pageName: props.pageName,
+          query: {
+            offset: 0,
+            size: 10,
+            ...formData
+          }
+        })
+      }
+      getInfo()
+
 
       //table要展示的数据
       const tableData = computed(() => store.getters['system/gettersList'](props.pageName))
 
       return {
-        tableData
+        tableData,
+        getInfo
       }
     }
   })
