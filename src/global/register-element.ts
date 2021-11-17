@@ -50,6 +50,7 @@ import {
   ElBreadcrumbItem,
   ElTableColumn,
   ElPagination,
+  ElImage,
 } from 'element-plus/lib'
 
 const components = [
@@ -88,6 +89,8 @@ const components = [
   ElBreadcrumbItem,
   ElTableColumn,
   ElPagination,
+  ElImage,
+
 
 
   //图标

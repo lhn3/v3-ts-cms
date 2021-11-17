@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref } from 'vue'
+  import { defineComponent } from 'vue'
   import { FormConfig } from './config/formConfig'
   import { TableConfig } from './config/tableConfig'
   //导入设计好的form,table,并传入配置

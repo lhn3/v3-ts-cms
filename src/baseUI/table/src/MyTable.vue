@@ -12,7 +12,7 @@
 
       <template v-for="title in tableItem" :key="title.props">
         <!--        一列设置-->
-        <el-table-column :prop="title.props" :label="title.label" :width="title.width" align="center">
+        <el-table-column show-overflow-tooltip :prop="title.props" :label="title.label" :width="title.width" align="center">
           <!--          默认有一个default插槽-->
           <template #default="scope">
             <!--            scope.row一行的数据-->
@@ -27,11 +27,11 @@
     <div class="footer">
       <slot name="footer">
         <el-pagination
-          v-model:currentPage="currentPage4"
-          :page-sizes="[100, 200, 300, 400]"
-          :page-size="100"
+          v-model:currentPage="page.pageCurrent"
+          :page-sizes="[10, 20, 30]"
+          :page-size="page.pageSize"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="400"
+          :total="tableCount"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
         >
@@ -54,6 +54,10 @@
         type: Array,
         default: () => []
       },
+      tableCount: {
+        type: Number,
+        default: 0
+      },
       tableItem: {
         type: Array as PropType<tableType[]>,
         default: () => []
@@ -69,16 +73,27 @@
       title: {
         type: String,
         default: ''
+      },
+      page: {
+        type: Object,
+        default: () => ({ pageSize: 10, pageCurrent: 1 })
       }
     },
-    emits: ['getRowInfo'],
+    emits: ['getRowInfo', 'update:page'],
     setup(props, { emit }) {
       //获取被选择的行的数组并发射出事件
       const getRowFunc = ((v: any) => {
         emit('getRowInfo', v)
       })
+
+      //双向绑定，发射事件
+      const handleSizeChange = (pageSize: number) => emit('update:page', { ...props.page, pageSize })
+      const handleCurrentChange = (pageCurrent: number) => emit('update:page', { ...props.page, pageCurrent })
+
       return {
-        getRowFunc
+        getRowFunc,
+        handleSizeChange,
+        handleCurrentChange
       }
     }
   })
@@ -89,18 +104,21 @@
     padding: 20px;
     border-top: 20px solid #eff1f4;
   }
-.header{
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
   .title {
     text-align: left;
     color: #5c6b77;
     margin: 0;
     line-height: 40px;
   }
-  .footer{
+
+  .footer {
     text-align: right;
     margin-top: 10px;
   }

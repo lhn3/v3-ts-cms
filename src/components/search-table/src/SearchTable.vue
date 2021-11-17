@@ -1,6 +1,6 @@
 <template>
   <div class="search-table">
-    <MyTable v-bind="TableConfig" :tableData="tableData">
+    <MyTable v-bind="TableConfig" :tableData="tableData" :tableCount="tableCount" v-model:page="pageInfo">
       <template #header>
         <el-button type="primary">{{buttonName}}</el-button>
       </template>
@@ -32,6 +32,15 @@
           </el-icon>
         </el-button>
       </template>
+<!--图片插槽-->
+      <template #img="scope">
+        <el-image
+          style="width: 80px; height: 80px"
+          :src="scope.row.imgUrl"
+          :preview-src-list=[scope.row.imgUrl]
+        >
+        </el-image>
+      </template>
 
 
     </MyTable>
@@ -40,7 +49,7 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent } from 'vue'
+  import { computed, defineComponent, ref, watch } from 'vue'
   import { MyTable } from '@/baseUI/table'
   import { useStore } from '@/store'
 
@@ -67,12 +76,14 @@
     setup(props) {
       //发送网络请求
       const store = useStore()
+      const pageInfo = ref({ pageSize: 10, pageCurrent: 1 })
+      watch(pageInfo, () => getInfo())
       const getInfo = (formData: any = {}) => {
         store.dispatch('system/getSystemAction', {
           pageName: props.pageName,
           query: {
-            offset: 0,
-            size: 10,
+            offset: (pageInfo.value.pageCurrent-1) * pageInfo.value.pageSize,
+            size: pageInfo.value.pageSize,
             ...formData
           }
         })
@@ -82,10 +93,13 @@
 
       //table要展示的数据
       const tableData = computed(() => store.getters['system/gettersList'](props.pageName))
+      const tableCount = computed(() => store.getters['system/gettersCount'](props.pageName))
 
       return {
         tableData,
-        getInfo
+        tableCount,
+        getInfo,
+        pageInfo
       }
     }
   })
