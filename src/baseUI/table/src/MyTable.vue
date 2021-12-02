@@ -27,6 +27,7 @@
               {{scope.row[title.props]}}
             </slot>
           </template>
+
         </el-table-column>
       </template>
     </el-table>

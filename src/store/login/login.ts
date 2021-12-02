@@ -5,7 +5,7 @@ import { accountLoginRequest, getUserInfo, getUserMenus } from '@/service/login/
 import { IAccount } from '@/service/login/type'
 import localCache from '@/utils/cache'
 import router from '@/router'
-import { menusRouter } from '@/utils/menusRouter'
+import { menusRouter,mapButtonPermission } from '@/utils/menusRouter'
 import localVuex from '@/store'
 
 export const loginModule: Module<ILoginState, IRootState> = {
@@ -14,7 +14,8 @@ export const loginModule: Module<ILoginState, IRootState> = {
     return {
       token: '',
       userInfo: {},
-      userMenus: []
+      userMenus: [],
+      permissions:[]
     }
   },
   mutations: {
@@ -32,6 +33,9 @@ export const loginModule: Module<ILoginState, IRootState> = {
       routes.forEach((route) => {
         router.addRoute('main', route)
       })
+
+    //  获取用户按钮权限
+      state.permissions=mapButtonPermission(state.userMenus)
     }
   },
   actions: {

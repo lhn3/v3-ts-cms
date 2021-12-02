@@ -91,8 +91,6 @@ const components = [
   ElPagination,
   ElImage,
 
-
-
   //图标
   ElIcon,
   Monitor,

@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
-import {breadType} from '@/baseUI/breadcrumb'
+import { breadType } from '@/baseUI/breadcrumb'
 
 export function menusRouter(userMenus: any): Array<RouteRecordRaw> {
   const routes: Array<RouteRecordRaw> = []
@@ -40,15 +40,15 @@ export function menusRouter(userMenus: any): Array<RouteRecordRaw> {
 }
 
 //获取刷新后保持选择的菜单id
-export function getMenuId(userMenu: any, routePath: any,bread?:Array<breadType>): any {
+export function getMenuId(userMenu: any, routePath: any, bread?: Array<breadType>): any {
   for (let item of userMenu) {
     if (item.type == 1) {
       const res = getMenuId(item.children ?? [], routePath)
       if (res) {
         //如果要获取面包屑
-        if(bread){
-          bread.push({ name:item.name,path:item.url })
-          bread.push({ name:res.name,path:res.url })
+        if (bread) {
+          bread.push({ name: item.name, path: item.url })
+          bread.push({ name: res.name, path: res.url })
           return bread
         }
         return res.id
@@ -61,6 +61,27 @@ export function getMenuId(userMenu: any, routePath: any,bread?:Array<breadType>)
 
 //获取面包屑内容 上级菜单名/此级菜单名
 export function getBreadcrumb(userMenu: any, routePath: any) {
-  let bread:Array<breadType>=[]
-  return getMenuId(userMenu, routePath,bread)
+  let bread: Array<breadType> = []
+  return getMenuId(userMenu, routePath, bread)
+}
+
+//获取按钮权限列表
+export function mapButtonPermission(userMenu: any) {
+  const permission: Array<string> = []
+
+  //递归判断
+  const func = (menus: any) => {
+    for (let item of menus) {
+      //如果type不等于3则继续调用子菜单
+      if (item.type == 1 || item.type == 2) {
+        func(item.children ?? [])
+      } else {
+        //将按钮权限名称添加到一个空列表中
+        permission.push(item.permission)
+      }
+    }
+  }
+  func(userMenu)
+
+  return permission
 }
