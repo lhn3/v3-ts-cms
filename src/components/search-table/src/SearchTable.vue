@@ -22,23 +22,23 @@
       </template>
 
       <!--修改操作的显示-->
-      <template #control v-if="Update">
+      <template #control="scope" v-if="Update">
         <el-button type="primary" circle v-if="Update">
           <el-icon>
             <edit/>
           </el-icon>
         </el-button>
-        <el-button type="danger" circle v-if="Delete">
+        <el-button type="danger" circle v-if="Delete" @click="delTable(scope.row.id)">
           <el-icon>
             <delete/>
           </el-icon>
         </el-button>
       </template>
 
-<!--      定义动态插槽-->
-<!--      接收外部插槽位置传递的数据再以相同插槽名字传到上一层-->
+      <!--      定义动态插槽-->
+      <!--      接收外部插槽位置传递的数据再以相同插槽名字传到上一层-->
       <template v-for="item in slotItems" :key="item.slotName" #[item.slotName]="scope">
-<!--        定义一个插槽供外部使用-->
+        <!--        定义一个插槽供外部使用-->
         <slot :row="scope.row" :name="item.slotName"></slot>
       </template>
 
@@ -52,7 +52,8 @@
   import { computed, defineComponent, ref, watch } from 'vue'
   import { MyTable } from '@/baseUI/table'
   import { useStore } from '@/store'
-  import {usePermissions} from '@/hooks/usePermissions'
+  import { usePermissions } from '@/hooks/usePermissions'
+  import { ElMessageBox, ElMessage } from 'element-plus'
 
   export default defineComponent({
     name: 'SearchTable',
@@ -75,10 +76,10 @@
     },
     setup(props) {
       //获取按钮权限
-      const Create=usePermissions(props.pageName!,'create')
-      const Update=usePermissions(props.pageName!,'update')
-      const Delete=usePermissions(props.pageName!,'delete')
-      const Query=usePermissions(props.pageName!,'query')
+      const Create = usePermissions(props.pageName!, 'create')
+      const Update = usePermissions(props.pageName!, 'update')
+      const Delete = usePermissions(props.pageName!, 'delete')
+      const Query = usePermissions(props.pageName!, 'query')
 
       //发送网络请求
       const store = useStore()
@@ -90,7 +91,7 @@
         store.dispatch('system/getSystemAction', {
           pageName: props.pageName,
           query: {
-            offset: (pageInfo.value.pageCurrent-1) * pageInfo.value.pageSize,
+            offset: (pageInfo.value.pageCurrent - 1) * pageInfo.value.pageSize,
             size: pageInfo.value.pageSize,
             ...formData
           }
@@ -104,16 +105,45 @@
       const tableCount = computed(() => store.getters['system/gettersCount'](props.pageName))
 
       //获取传过来的配置中需要插槽的名字(除去固定插槽)
-      const slotItems=props.TableConfig!.tableItem.filter((item:any)=>{
-        if(item.slotName=='status' ||item.slotName=='create' || item.slotName=='update' || item.slotName=='control'|| item.slotName==null) return false
+      const slotItems = props.TableConfig!.tableItem.filter((item: any) => {
+        if (item.slotName == 'status' || item.slotName == 'create' || item.slotName == 'update' || item.slotName == 'control' || item.slotName == null) return false
         return true
       })
+
+      //删除按钮
+      const delTable = (id: any) => {
+        ElMessageBox.confirm(
+          '确定删除？',
+          'Warning',
+          {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }
+        ).then(() => {
+          ElMessage({
+            type: 'success',
+            message: '删除成功'
+          })
+          //执行删除逻辑
+          store.dispatch('system/delSystemAction', { pageName: props.pageName, id })
+        }).catch(() => {
+          ElMessage({
+            type: 'info',
+            message: '已取消'
+          })
+        })
+      }
+
+      //编辑按钮
+
       return {
         tableData,
         tableCount,
         getInfo,
         pageInfo,
         slotItems,
+        delTable,
         Create,
         Update,
         Delete

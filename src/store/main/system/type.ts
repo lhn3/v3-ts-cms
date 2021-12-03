@@ -8,4 +8,5 @@ export interface ISystemState {
   goodsCount:number,
   menuList: Array<any>,
   menuCount: number,
+  query:Object
 }
