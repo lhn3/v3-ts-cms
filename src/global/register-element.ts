@@ -51,6 +51,7 @@ import {
   ElTableColumn,
   ElPagination,
   ElImage,
+  ElDialog
 } from 'element-plus/lib'
 
 const components = [
@@ -90,6 +91,7 @@ const components = [
   ElTableColumn,
   ElPagination,
   ElImage,
+  ElDialog,
 
   //图标
   ElIcon,

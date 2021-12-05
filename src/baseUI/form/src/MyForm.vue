@@ -90,7 +90,7 @@
       },
       modelValue: {
         type: Object,
-        require: true
+        default:()=>({})
       }
     },
     setup() {

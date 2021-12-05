@@ -2,7 +2,7 @@
   <div class="search-table">
     <MyTable v-bind="TableConfig" :tableData="tableData" :tableCount="tableCount" v-model:page="pageInfo">
       <template #header>
-        <el-button type="primary" v-if="Create">{{buttonName}}</el-button>
+        <el-button type="primary" v-if="Create" @click="newClick">{{buttonName}}</el-button>
       </template>
 
       <!--      修改状态的显示-->
@@ -23,7 +23,7 @@
 
       <!--修改操作的显示-->
       <template #control="scope" v-if="Update">
-        <el-button type="primary" circle v-if="Update">
+        <el-button type="primary" circle v-if="Update" @click="editClick(scope.row)">
           <el-icon>
             <edit/>
           </el-icon>
@@ -57,6 +57,7 @@
 
   export default defineComponent({
     name: 'SearchTable',
+    emits:['newClick','editClick'],
     components: {
       MyTable
     },
@@ -74,7 +75,7 @@
         require: true
       }
     },
-    setup(props) {
+    setup(props,{emit}) {
       //获取按钮权限
       const Create = usePermissions(props.pageName!, 'create')
       const Update = usePermissions(props.pageName!, 'update')
@@ -135,6 +136,16 @@
         })
       }
 
+      //新增数据
+      const newClick=()=>{
+        emit('newClick')
+      }
+      //编辑数据
+      const editClick=(row:any)=>{
+        emit('editClick',row)
+      }
+
+
       //编辑按钮
 
       return {
@@ -144,6 +155,9 @@
         pageInfo,
         slotItems,
         delTable,
+        newClick,
+        editClick,
+
         Create,
         Update,
         Delete
