@@ -8,38 +8,48 @@ import { getDataList } from '@/service/main/system/system'
 export const store = createStore<IRootState>({
   state() {
     return {
-      name: '',
-      age: 1,
-      departments:[],
-      roles:[]
+      departments: [],
+      roles: [],
+      menus:[]
     }
   },
   mutations: {
-    saveDepartments(state,payload){
-      state.departments=payload
+    saveDepartments(state, payload) {
+      state.departments = payload
     },
-    saveRoles(state,payload){
-      state.roles=payload
+    saveRoles(state, payload) {
+      state.roles = payload
+    },
+    saveMenus(state, payload) {
+      state.menus = payload
     }
   },
   actions: {
-    //请求所有部门和角色
-    async getDepartments(action){
-      const departmentsRes=await getDataList('/department/list',{
-        offset:0,
-        size:100
+    //请求所有部门、角色、菜单
+    async getDepartments(action) {
+      //部门请求
+      const departmentsRes = await getDataList('/department/list', {
+        offset: 0,
+        size: 100
       })
-      const rolesRes=await getDataList('/role/list',{
-        offset:0,
-        size:100
+      //角色请求
+      const rolesRes = await getDataList('/role/list', {
+        offset: 0,
+        size: 100
       })
-      action.commit('saveDepartments',departmentsRes.data.list)
-      action.commit('saveRoles',rolesRes.data.list)
-    },
+      //菜单请求
+      const menusRes = await getDataList('/menu/list', {
+        offset: 0,
+        size: 100
+      })
+      action.commit('saveDepartments', departmentsRes.data.list)
+      action.commit('saveRoles', rolesRes.data.list)
+      action.commit('saveMenus', menusRes.data.list)
+    }
   },
   modules: {
     login: loginModule,
-    system:systemModule
+    system: systemModule
   }
 })
 

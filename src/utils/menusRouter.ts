@@ -85,3 +85,22 @@ export function mapButtonPermission(userMenu: any) {
 
   return permission
 }
+
+//编辑按钮获取所有权限叶子结点id
+export function getMenuLeaves(menuList: any) {
+  const leaves: number[] = []
+
+  const func = (items: any) => {
+    for (let item of items) {
+      if (item.children == null || item.children.length < 0) {
+        leaves.push(item.id)
+      } else {
+        func(item.children)
+      }
+    }
+  }
+  func(menuList)
+
+  return leaves
+
+}

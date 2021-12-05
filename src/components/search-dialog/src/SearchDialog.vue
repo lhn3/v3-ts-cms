@@ -7,7 +7,7 @@
     center>
 
     <MyForm v-bind="DialogConfig" v-model="formData"></MyForm>
-
+    <slot></slot>
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="dialogVisible = false">取消</el-button>
@@ -41,6 +41,10 @@
       pageName: {
         type: String,
         require: true
+      },
+      otherInfo:{
+        type:Object,
+        default:()=>({})
       }
     },
     components: {
@@ -69,13 +73,13 @@
           store.dispatch('system/editSystemAction',{
             pageName:props.pageName,
             id:props.tableRow.id,
-            query: { ...formData.value }
+            query: { ...formData.value,...props.otherInfo }
           })
         } else {
           //新建
           store.dispatch('system/newSystemAction',{
             pageName:props.pageName,
-            query: { ...formData.value }
+            query: { ...formData.value,...props.otherInfo }
           })
         }
       }
