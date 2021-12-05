@@ -14,3 +14,19 @@ export function deleteData(url:string) {
     url:url,
   })
 }
+
+//新建请求
+export function newData(url:string,query:object) {
+  return myAxios.post<Response>({
+    url:url,
+    data:query
+  })
+}
+
+//编辑请求
+export function editData(url:string,query:object) {
+  return myAxios.patch<Response>({
+    url:url,
+    data:query
+  })
+}

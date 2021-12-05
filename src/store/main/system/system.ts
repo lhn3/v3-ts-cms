@@ -1,7 +1,7 @@
 import { Module } from 'vuex'
 import { IRootState } from '@/store/type'
 import { ISystemState } from './type'
-import { getDataList,deleteData } from '@/service/main/system/system'
+import { getDataList,deleteData,newData,editData } from '@/service/main/system/system'
 
 export const systemModule: Module<ISystemState, IRootState> = {
   namespaced: true,
@@ -63,7 +63,7 @@ export const systemModule: Module<ISystemState, IRootState> = {
     //获取
     async getSystemAction(action, payload: any) {
       const { pageName, query } = payload
-      const url = `${pageName}/list`
+      const url = `/${pageName}/list`
 
       //query存入vuex方便之后添加删除数据刷新别表
       action.commit('saveQuery',query)
@@ -79,9 +79,33 @@ export const systemModule: Module<ISystemState, IRootState> = {
 
     //删除
     async delSystemAction(action,payload:any){
-      const url=`${payload.pageName}/${payload.id}`
+      const url=`/${payload.pageName}/${payload.id}`
       //发送请求
       await deleteData(url)
+      // 刷新列表
+      action.dispatch('getSystemAction',{
+        pageName:payload.pageName,
+        query:action.state.query
+      })
+    },
+
+    //新建
+    async newSystemAction(action,payload:any){
+      const url=`/${payload.pageName}`
+      //发送请求
+      await newData(url,payload.query)
+      // 刷新列表
+      action.dispatch('getSystemAction',{
+        pageName:payload.pageName,
+        query:action.state.query
+      })
+    },
+
+    //编辑
+    async editSystemAction(action,payload:any){
+      const url=`/${payload.pageName}/${payload.id}`
+      //发送请求
+      await editData(url,payload.query)
       // 刷新列表
       action.dispatch('getSystemAction',{
         pageName:payload.pageName,

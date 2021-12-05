@@ -10,11 +10,14 @@
       buttonName="新建用户"
       ref="searchTable"
       @newClick="newClick"
-      @editClick="editClick">
-    </SearchTable>
+      @editClick="editClick"/>
 
     <!--    创建用户的表单-->
-    <SearchDialog :DialogConfig="DialogConfigRef" title="新建用户" ref="showDialog" :tableRow="tableRow"></SearchDialog>
+    <SearchDialog
+      :DialogConfig="DialogConfigRef"
+      title="新建用户" ref="showDialog"
+      :tableRow="tableRow"
+      pageName="users"/>
   </div>
 </template>
 
@@ -70,7 +73,7 @@
         const role = DialogConfig.formItem?.find(item => {
           return item.field === 'roleId'
         })
-        role!.options=store.state.departments.map((item: { name: any; id: any }) => {
+        role!.options=store.state.roles.map((item: { name: any; id: any }) => {
           return {title:item.name,value:item.id}
         })
         return DialogConfig

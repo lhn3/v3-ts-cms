@@ -83,7 +83,10 @@ export default class myRequest {
   delete<T>(config: myRequestConfig): Promise<T> {
     return this.request<T>({ ...config, method: 'DELETE' })
   }
-  PUT<T>(config: myRequestConfig): Promise<T> {
+  put<T>(config: myRequestConfig): Promise<T> {
     return this.request<T>({ ...config, method: 'PUT' })
+  }
+  patch<T>(config: myRequestConfig): Promise<T> {
+    return this.request<T>({ ...config, method: 'PATCH' })
   }
 }

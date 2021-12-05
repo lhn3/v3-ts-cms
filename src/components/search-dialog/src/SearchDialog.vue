@@ -11,7 +11,7 @@
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确定</el-button>
+        <el-button type="primary" @click="subDialog">确定</el-button>
       </span>
     </template>
   </el-dialog>
@@ -20,6 +20,7 @@
 <script lang="ts">
   import { defineComponent, ref, watch, computed } from 'vue'
   import { MyForm } from '@/baseUI/form/index'
+  import { useStore } from 'vuex'
 
 
   export default defineComponent({
@@ -35,7 +36,11 @@
       },
       tableRow: {
         type: Object,
-        default:()=>({})
+        default: () => ({})
+      },
+      pageName: {
+        type: String,
+        require: true
       }
     },
     components: {
@@ -44,20 +49,41 @@
     setup(props) {
       const dialogVisible = ref(false)
       const formData = ref<any>({})
+      const store = useStore()
 
       //监听传入tableRow
       //数据回填
-      watch(() => props.tableRow, (newValue:any) => {
-        for (let item of props.DialogConfig.formItem){
-          formData.value[`${item.field}`]=newValue[`${item.field}`]
+      watch(() => props.tableRow, (newValue: any) => {
+        for (let item of props.DialogConfig.formItem) {
+          formData.value[`${item.field}`] = newValue[`${item.field}`]
         }
-      },{
-        deep:true
+      }, {
+        deep: true
       })
+
+      //监听确定按钮发送网络请求
+      const subDialog = () => {
+        dialogVisible.value = false
+        if (Object.keys(props.tableRow).length > 0) {
+          //编辑
+          store.dispatch('system/editSystemAction',{
+            pageName:props.pageName,
+            id:props.tableRow.id,
+            query: { ...formData.value }
+          })
+        } else {
+          //新建
+          store.dispatch('system/newSystemAction',{
+            pageName:props.pageName,
+            query: { ...formData.value }
+          })
+        }
+      }
 
       return {
         dialogVisible,
-        formData
+        formData,
+        subDialog
       }
     }
   })
