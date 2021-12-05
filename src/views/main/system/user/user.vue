@@ -14,7 +14,7 @@
     </SearchTable>
 
 <!--    创建用户的表单-->
-    <SearchDialog :DialogConfig="DialogConfig" title="新建用户" ref="dialog"></SearchDialog>
+    <SearchDialog :DialogConfig="DialogConfig" title="新建用户" ref="showDialog" :tableRow="tableRow"></SearchDialog>
   </div>
 </template>
 
@@ -29,6 +29,7 @@
   import { SearchDialog } from '@/components/search-dialog'
   //导入封装好的请求hooks
   import {usePageSearch} from '@/hooks/usePageSearch'
+  import {useDialog} from '@/hooks/useDialog'
 
   export default defineComponent({
     name: 'user',
@@ -39,16 +40,7 @@
     },
     setup() {
       const [searchTable,pageSearch]=usePageSearch()
-
-      const dialog=ref<InstanceType<typeof SearchDialog>>()
-      //点击按钮改变子组件中的数据
-      const newClick=()=>{
-        dialog.value!.dialogVisible=true
-      }
-      const editClick=(row:any)=>{
-        dialog.value!.dialogVisible=true
-        console.log(row)
-      }
+      const [newClick,editClick,showDialog,tableRow]=useDialog()
 
       return {
         //传入需要创建的表单
@@ -59,7 +51,8 @@
         searchTable,
         newClick,
         editClick,
-        dialog
+        showDialog,
+        tableRow
       }
     }
   })

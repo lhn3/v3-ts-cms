@@ -6,7 +6,7 @@
     destroy-on-close
     center>
 
-    <MyForm v-bind="DialogConfig"></MyForm>
+    <MyForm v-bind="DialogConfig" v-model="formData"></MyForm>
 
     <template #footer>
       <span class="dialog-footer">
@@ -29,9 +29,13 @@
         type: Object,
         default: () => ({})
       },
-      title:{
-        type:String,
-        require:true
+      title: {
+        type: String,
+        require: true
+      },
+      tableRow: {
+        type: Object,
+        default:()=>({})
       }
     },
     components: {
@@ -39,8 +43,21 @@
     },
     setup(props) {
       const dialogVisible = ref(false)
+      const formData = ref<any>({})
+
+      //监听传入tableRow
+      //数据回填
+      watch(() => props.tableRow, (newValue:any) => {
+        for (let item of props.DialogConfig.formItem){
+          formData.value[`${item.field}`]=newValue[`${item.field}`]
+        }
+      },{
+        deep:true
+      })
+
       return {
-        dialogVisible
+        dialogVisible,
+        formData
       }
     }
   })
