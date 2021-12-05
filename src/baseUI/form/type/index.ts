@@ -5,7 +5,8 @@ export interface formType {
 
   placeholder?: any,
   rules?: any,           //规则
-  show?: boolean,
+  isShow?: boolean,
+  isHidden?:boolean,
   options?: Array<any>,
   others?: any,
 }

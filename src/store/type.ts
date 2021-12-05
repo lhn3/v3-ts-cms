@@ -5,6 +5,8 @@ import { ISystemState } from './main/system/type'
 export interface IRootState {
   name: string
   age: number
+  departments:Array<any>
+  roles:Array<any>
 }
 
 //创建一个可以保存所有module的类型

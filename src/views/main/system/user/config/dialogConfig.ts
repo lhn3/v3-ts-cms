@@ -24,11 +24,26 @@ export const DialogConfig: formConfigType = {
     {
       type: 'input',
       label: '密码',
-      show:false,
+      isShow: true,      //默认不显示
+      isHidden: false,   //默认不隐藏
       field: 'password',
       placeholder: '请输入密码'
     },
+    {
+      type: 'select',
+      label: '部门',
+      field: 'departmentId',
+      placeholder: '请选择部门',
+      options: []
+    },
+    {
+      type: 'select',
+      label: '角色',
+      field: 'roleId',
+      placeholder: '请选择角色',
+      options: []
+    }
   ],
   labelWidth: '100px',
-  colSpan: { span: 24 },
+  colSpan: { span: 24 }
 }

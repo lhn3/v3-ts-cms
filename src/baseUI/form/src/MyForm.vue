@@ -8,7 +8,7 @@
       <el-row :gutter="20">
         <template v-for="item in formItem" :key="item.label">
           <!--          普通输入框-->
-          <template v-if="item.type == 'input'">
+          <template v-if="item.type == 'input' && item.isHidden!==true" >
             <el-col v-bind="colSpan">
               <el-form-item :label="item.label">
                 <el-input
