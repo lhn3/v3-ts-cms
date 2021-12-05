@@ -1,7 +1,9 @@
 <template>
   <div class="user">
     <!--    搜索查询-->
-    <SearchForm :FormConfig="FormConfig" @pageSearch="pageSearch"></SearchForm>
+    <SearchForm
+      :FormConfig="FormConfig"
+      @pageSearch="pageSearch"/>
 
     <!--    数据展示-->
     <SearchTable
@@ -15,7 +17,8 @@
     <!--    创建用户的表单-->
     <SearchDialog
       :DialogConfig="DialogConfigRef"
-      title="新建用户" ref="showDialog"
+      :title="title"
+      ref="showDialog"
       :tableRow="tableRow"
       pageName="users"/>
   </div>
@@ -43,6 +46,7 @@
       SearchDialog
     },
     setup() {
+      //搜索按钮
       const [searchTable, pageSearch] = usePageSearch()
       const store = useStore()
 
@@ -66,20 +70,21 @@
         const department = DialogConfig.formItem?.find(item => {
           return item.field === 'departmentId'
         })
-        department!.options=store.state.departments.map((item: { name: any; id: any }) => {
-          return {title:item.name,value:item.id}
+        department!.options = store.state.departments.map((item: { name: any; id: any }) => {
+          return { title: item.name, value: item.id }
         })
         //角色
         const role = DialogConfig.formItem?.find(item => {
           return item.field === 'roleId'
         })
-        role!.options=store.state.roles.map((item: { name: any; id: any }) => {
-          return {title:item.name,value:item.id}
+        role!.options = store.state.roles.map((item: { name: any; id: any }) => {
+          return { title: item.name, value: item.id }
         })
         return DialogConfig
       })
 
-      const [newClick, editClick, showDialog, tableRow] = useDialog(newCb, editCb)
+
+      const [newClick, editClick, showDialog, tableRow, title] = useDialog(newCb, editCb)
 
       return {
         //传入需要创建的表单
@@ -91,7 +96,8 @@
         newClick,
         editClick,
         showDialog,
-        tableRow
+        tableRow,
+        title
       }
     }
   })

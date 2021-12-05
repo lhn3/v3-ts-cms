@@ -1,7 +1,13 @@
 <template>
   <div class="goods">
-    <SearchForm :FormConfig="FormConfig" @pageSearch="pageSearch"></SearchForm>
-    <SearchTable :TableConfig="TableConfig" pageName="menu" buttonName="新建菜单"></SearchTable>
+    <SearchForm
+      :FormConfig="FormConfig"
+      @pageSearch="pageSearch"/>
+
+    <SearchTable
+      :TableConfig="TableConfig"
+      pageName="menu"
+      buttonName="新建菜单"/>
   </div>
 </template>
 

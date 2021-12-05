@@ -11,15 +11,15 @@ export const FormConfig: formConfigType = {
     },
     {
       type: 'input',
-      label: '归属',
+      label: '角色名',
       field: 'name',
-      placeholder: '请输入归属'
+      placeholder: '请输入角色名'
     },
     {
       type: 'input',
-      label: '权限',
+      label: '描述',
       field: 'intro',
-      placeholder: '请输入权限'
+      placeholder: '请输入描述'
     },
     {
       type: 'date-picker',
