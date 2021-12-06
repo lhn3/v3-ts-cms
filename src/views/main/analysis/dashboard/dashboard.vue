@@ -6,11 +6,21 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import {useStore} from 'vuex'
 
 export default defineComponent({
   name: 'dashboard',
   setup() {
-    return {}
+    const state=useStore()
+
+    //发送请求所有的商品销量/总数信息
+    state.dispatch('analysis/getAnalysisAction')
+
+
+
+    return {
+
+    }
   }
 })
 </script>

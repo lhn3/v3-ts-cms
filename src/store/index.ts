@@ -1,7 +1,11 @@
 import { createStore, Store, useStore as use_store } from 'vuex'
+
 import { loginModule } from './login/login'
 import { systemModule } from './main/system/system'
+import { AnalysisModule } from './main/analysis/analysis'
+
 import { IRootState, IStoreType } from './type'
+
 import { getDataList } from '@/service/main/system/system'
 
 
@@ -49,7 +53,8 @@ export const store = createStore<IRootState>({
   },
   modules: {
     login: loginModule,
-    system: systemModule
+    system: systemModule,
+    analysis:AnalysisModule
   }
 })
 
