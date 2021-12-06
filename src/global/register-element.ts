@@ -52,7 +52,8 @@ import {
   ElPagination,
   ElImage,
   ElDialog,
-  ElTree
+  ElTree,
+  ElCard
 } from 'element-plus/lib'
 
 const components = [
@@ -94,6 +95,7 @@ const components = [
   ElImage,
   ElDialog,
   ElTree,
+  ElCard,
 
   //图标
   ElIcon,
