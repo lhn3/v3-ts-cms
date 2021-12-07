@@ -1,5 +1,6 @@
 import { ILoginState } from './login/type'
 import { ISystemState } from './main/system/type'
+import { IAnalysisState } from './main/analysis/type'
 
 
 export interface IRootState {
@@ -12,6 +13,7 @@ export interface IRootState {
 export interface IModuleState {
   login: ILoginState
   system: ISystemState
+  analysis:IAnalysisState
 }
 
 //合并根和module的所有类型

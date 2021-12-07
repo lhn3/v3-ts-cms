@@ -1,24 +1,34 @@
 <template>
   <div class="dashboard">
-<!--    间距10px-->
+    <!--    间距10px-->
     <el-row :gutter="10" class="above">
       <el-col :span="7">
-        <MyCard title="分类商品数量(饼状图)"><MyEChart width="100%" height="300px" :option="option"></MyEChart></MyCard>
+        <MyCard title="分类商品数量(饼状图)">
+          <PieEChart :data="pieData"></PieEChart>
+        </MyCard>
       </el-col>
       <el-col :span="10">
-        <MyCard title="商品全国销量"></MyCard>
+        <MyCard title="商品全国销量">
+          2
+        </MyCard>
       </el-col>
       <el-col :span="7">
-        <MyCard title="分类商品数量(玫瑰图)"></MyCard>
+        <MyCard title="分类商品数量(玫瑰图)">
+          3
+        </MyCard>
       </el-col>
     </el-row>
 
     <el-row :gutter="10">
       <el-col :span="12">
-        <MyCard title="分类商品销量"></MyCard>
+        <MyCard title="分类商品销量">
+          4
+        </MyCard>
       </el-col>
       <el-col :span="12">
-        <MyCard title="分类商品收藏"></MyCard>
+        <MyCard title="分类商品收藏">
+          5
+        </MyCard>
       </el-col>
     </el-row>
   </div>
@@ -27,69 +37,40 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import {useStore} from 'vuex'
-import {MyCard} from '@/baseUI/card'
-import {MyEChart} from "@/baseUI/echart"
+  import { defineComponent, computed } from 'vue'
+  import { useStore } from 'vuex'
+  import { MyCard } from '@/baseUI/card'
 
-export default defineComponent({
-  name: 'dashboard',
-  components:{
-    MyCard,
-    MyEChart
-  },
-  setup() {
-    const state=useStore()
+  import { PieEChart } from '@/components/page-echarts'
 
-    //发送请求所有的商品销量/总数信息
-    state.dispatch('analysis/getAnalysisAction')
+  export default defineComponent({
+    name: 'dashboard',
+    components: {
+      MyCard,
+      PieEChart
+    },
+    setup() {
+      const state = useStore()
 
-    const option = {
-      title: {
-        text: 'Referer of a Website',
-        subtext: 'Fake Data',
-        left: 'center'
-      },
-      tooltip: {
-        trigger: 'item'
-      },
-      legend: {
-        orient: 'vertical',
-        left: 'left'
-      },
-      series: [
-        {
-          name: 'Access From',
-          type: 'pie',
-          radius: '50%',
-          data: [
-            { value: 1048, name: 'Search Engine' },
-            { value: 735, name: 'Direct' },
-            { value: 580, name: 'Email' },
-            { value: 484, name: 'Union Ads' },
-            { value: 300, name: 'Video Ads' }
-          ],
-          emphasis: {
-            itemStyle: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: 'rgba(0, 0, 0, 0.5)'
-            }
-          }
-        }
-      ]
+      //发送请求所有的商品销量/总数信息
+      state.dispatch('analysis/getAnalysisAction')
+
+      //获取饼状图数据
+      const pieData = computed(() =>
+        state.state.analysis.goodsCount.map((item: any) => {
+          return { value: item.goodsCount, name: item.name }
+        })
+      )
+
+      return {
+        pieData
+      }
     }
-
-
-    return {
-      option
-    }
-  }
-})
+  })
 </script>
 
 <style scoped>
-  .above{
+  .above {
     margin-bottom: 20px;
   }
 </style>

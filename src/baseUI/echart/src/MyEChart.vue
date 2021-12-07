@@ -1,11 +1,9 @@
 <template>
-  <div class="echart" ref="el" :style="{width: width,height:height}">
-  </div>
+  <div class="echart" ref="el" :style="{width: width,height:height}"></div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref, onMounted } from 'vue'
-  import {EChartsOption} from 'echarts'
+  import { defineComponent, ref, onMounted,watchEffect } from 'vue'
   import useECharts from '../hooks/useECharts'
 
   export default defineComponent({
@@ -31,7 +29,7 @@
         //初始化
         const res=useECharts(el.value!)
         //导入option
-        res.setOption(props.option!)
+        watchEffect(() => res.setOption(props.option!))
       })
 
       return{
