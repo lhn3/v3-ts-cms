@@ -7,16 +7,19 @@
   import {MyEChart} from "@/baseUI/echart"
 
   export default defineComponent({
-    name: 'PieEChart',
+    name: 'RoseEChart',
     props:{
       data:{
         type:Array,
         default:()=>[
-          { value: 1048, name: 'Search Engine' },
-          { value: 735, name: 'Direct' },
-          { value: 580, name: 'Email' },
-          { value: 484, name: 'Union Ads' },
-          { value: 300, name: 'Video Ads' }
+          { value: 40, name: 'rose 1' },
+          { value: 38, name: 'rose 2' },
+          { value: 32, name: 'rose 3' },
+          { value: 30, name: 'rose 4' },
+          { value: 28, name: 'rose 5' },
+          { value: 26, name: 'rose 6' },
+          { value: 22, name: 'rose 7' },
+          { value: 18, name: 'rose 8' }
         ]
       }
     },
@@ -28,23 +31,17 @@
         tooltip: {
           trigger: 'item'
         },
-        legend: {
-          orient: 'horizontal',
-          left: 'left'
-        },
         series: [
           {
             name: '分类数据',
             type: 'pie',
-            radius: '50%',
-            data: props.data,
-            emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)'
-              }
-            }
+            radius: [10, 100],
+            center: ['50%', '50%'],
+            roseType: 'area',
+            itemStyle: {
+              borderRadius: 6
+            },
+            data: props.data
           }
         ]
       }))
