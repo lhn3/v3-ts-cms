@@ -9,7 +9,7 @@
       </el-col>
       <el-col :span="10">
         <MyCard title="商品全国销量">
-          2
+          <MapEChart :data="mapData"></MapEChart>
         </MyCard>
       </el-col>
       <el-col :span="7">
@@ -27,7 +27,7 @@
       </el-col>
       <el-col :span="12">
         <MyCard title="分类商品收藏">
-          <BarEChart v-bind="BarData"></BarEChart>
+          <BarEChart v-bind="barData"></BarEChart>
         </MyCard>
       </el-col>
     </el-row>
@@ -37,11 +37,11 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed } from 'vue'
+  import { defineComponent, computed,onMounted,nextTick } from 'vue'
   import { useStore } from 'vuex'
   import { MyCard } from '@/baseUI/card'
 
-  import { PieEChart, RoseEChart, LineEChart, BarEChart } from '@/components/page-echarts'
+  import { PieEChart, RoseEChart, LineEChart, BarEChart, MapEChart } from '@/components/page-echarts'
 
   export default defineComponent({
     name: 'dashboard',
@@ -50,7 +50,8 @@
       PieEChart,
       RoseEChart,
       LineEChart,
-      BarEChart
+      BarEChart,
+      MapEChart
     },
     setup() {
       const store = useStore()
@@ -62,6 +63,13 @@
       const pieData = computed(() =>
         store.state.analysis.goodsCount.map((item: any) => {
           return { value: item.goodsCount, name: item.name }
+        })
+      )
+
+      //获取全国销量
+      const mapData=computed(()=>
+        store.state.analysis.addressSale.map((item: any) => {
+          return { value: item.count, name: item.address }
         })
       )
 
@@ -79,7 +87,7 @@
       )
 
       //获取柱状图数据
-      const BarData = computed(() => {
+      const barData = computed(() => {
           const xAxis: Array<any> = []
           const yAxis: Array<any> = []
           const res = store.state.analysis.goodsFavor
@@ -94,7 +102,8 @@
       return {
         pieData,
         lineData,
-        BarData
+        barData,
+        mapData
       }
     }
   })
